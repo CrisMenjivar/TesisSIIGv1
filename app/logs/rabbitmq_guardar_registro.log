@@ -1,0 +1,20 @@
+
+
+                                               
+  [PhpAmqpLib\Exception\AMQPRuntimeException]  
+  Broken pipe or closed connection             
+                                               
+
+
+rabbitmq:consumer [-m|--messages[="..."]] [-r|--route[="..."]] [-l|--memory-limit[="..."]] [-d|--debug] [-w|--without-signals] name
+
+
+PHP Fatal error:  Uncaught exception 'PhpAmqpLib\Exception\AMQPRuntimeException' with message 'Broken pipe or closed connection' in /home/crisimenjivar10/Instalacion/siig/vendor/videlalvaro/php-amqplib/PhpAmqpLib/Wire/IO/StreamIO.php:190
+Stack trace:
+#0 /home/crisimenjivar10/Instalacion/siig/vendor/videlalvaro/php-amqplib/PhpAmqpLib/Connection/AbstractConnection.php(336): PhpAmqpLib\Wire\IO\StreamIO->write('\x01\x00\x01\x00\x00\x00\v\x00\x14\x00(\x00\x00\x00\x00...')
+#1 /home/crisimenjivar10/Instalacion/siig/vendor/videlalvaro/php-amqplib/PhpAmqpLib/Connection/AbstractConnection.php(457): PhpAmqpLib\Connection\AbstractConnection->write('\x01\x00\x01\x00\x00\x00\v\x00\x14\x00(\x00\x00\x00\x00...')
+#2 /home/crisimenjivar10/Instalacion/siig/vendor/videlalvaro/php-amqplib/PhpAmqpLib/Channel/AbstractChannel.php(223): PhpAmqpLib\Connection\AbstractConnection->send_channel_method_frame(1, Array, Object(PhpAmqpLib\Wire\AMQPWriter))
+#3 /home/crisimenjivar10/Instalacion/siig/vendor/videlalvaro/php-amqplib/PhpAmqpLib/Channel/AMQPChannel. in /home/crisimenjivar10/Instalacion/siig/vendor/videlalvaro/php-amqplib/PhpAmqpLib/Wire/IO/StreamIO.php on line 190
+PHP Stack trace:
+PHP   1. {main}() /home/crisimenjivar10/Instalacion/siig/app/console:0
+PHP   2. Symfony\Component\Console\Application->run() /home/crisimenjivar10/Instalacion/siig/app/console:22

@@ -1,0 +1,23 @@
+# This file is auto-generated during the composer install
+parameters:
+    database_driver: pdo_pgsql
+    database_host: localhost
+    database_port: 5432
+    database_name: indicador
+    database_user: postgres
+    database_password: 123
+    mailer_transport: smtp
+    mailer_host: localhost
+    mailer_user: null
+    mailer_password: null
+    locale: es_SV
+    secret: ThisTokenIsNotSoSecretChangeIt
+    database_path: null
+    archivo_vitacora: '%kernel.logs_dir%/minsal.log'
+    graficos_por_fila: 3
+    ancho_area_grafico: 370
+    alto_area_grafico: 400
+    titulo_sala_tamanio_fuente: 12
+    ocultar_menu_principal: 0
+    logo: 1
+    directorio: ''

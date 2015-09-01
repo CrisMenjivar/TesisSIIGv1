@@ -1,0 +1,288 @@
+{% extends 'IndicadoresBundle::standard_layout.html.twig' %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="{{ asset('bundles/indicadores/js/pivotTable/pivot.css') }}" type="text/css" media="all" />
+<link rel="stylesheet" href="{{ asset('bundles/indicadores/css/FichaTecnicaAdmin/pivotTable.css') }}" type="text/css" media="all" />
+<link rel="stylesheet" href="{{ asset('bundles/reportes/css/bootstrap.min.css') }}" media="all" />
+<link rel="stylesheet" href="{{ asset('bundles/reportes/css/bootstrap-theme.css') }}" media="all" />
+<link rel="stylesheet" href="{{ asset('bundles/reportes/css/reportes.css') }}" media="all" />
+<link rel="stylesheet" href="{{ asset('bundles/reportes/css/jquery.dataTables.min.css') }}" media="all" />
+{% endblock %}        
+{% block javascripts %}
+{{ parent() }}
+<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+<script src="{{ asset('bundles/indicadores/js/FichaTecnicaAdmin/pivotTable.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/indicadores/js/pivotTable/pivot.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/indicadores/js/pivotTable/pivot.es.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/indicadores/js/pivotTable/gcharts_renderers.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/indicadores/js/rasterizeHTML.allinone.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/indicadores/js/jquery.searchFilter.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/reportes/js/reportes.js') }}" type="text/javascript"></script>
+<script src="{{ asset('bundles/reportes/js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
+{% endblock %}
+{% block content %}
+
+<script>
+	$(document).ready(function() {
+    	$('#graficosT').dataTable( {
+        
+            "info": "Indicador _PAGE_ de _PAGES_",
+            "iDisplayLength": 1,
+	    "bFilter": false, 
+	    "bInfo": false,
+	    "bLengthChange": false,
+	    "bSort":false,
+	         
+	    		
+    });
+    var t = $('#graficosT').DataTable();
+   
+    $('#add').on( 'click', function () {
+        t.row.add( [
+	    "<input class='Gcomentarios' name='tituloE' type='text' value='' placeholder='Titulo'><br><br><textarea name='comentariosG' rows='30' cols='120' placeholder='Comentarios' ></textarea>"
+        ] ).draw();
+    } );
+	
+    	$('#graficosT tbody').on( 'click', 'tr', function () {
+        if ( $(this).hasClass('iDisplay') ) {
+            $(this).removeClass('iDisplay');
+        }
+        else {
+            t.$('tr.iDisplay').removeClass('iDisplay');
+            $(this).addClass('iDisplay');
+        }
+    } );
+ 
+    $('#delete').click( function () {
+        t.row('.iDisplay').remove().draw( false );
+    } );
+
+
+	var form = document.getElementsByName("Reporte");
+		
+	$('.enviar').click(function() {
+			
+		cont = 1;
+		$.each($("#graficosT").dataTable().fnGetNodes(), function () { 
+		var str = $(this).find('input').val();
+		var n = str.search("image/png;");
+
+		if(n == '-1' )
+		{
+			$('<input>').attr({
+				    			'name': 'comentariosG'+cont,
+							'value': $(this).find('textarea').val(),
+							'type': 'hidden'
+			}).appendTo(form)
+			
+			$('<input>').attr({
+				    			'name': 'tituloE'+cont,
+							'value': $(this).find('input:text').val(),
+							'type': 'hidden'
+			}).appendTo(form)
+				
+						
+		}
+		else 
+		{
+			$('<input>').attr({
+				    			'name': 'data'+cont,
+							'value': $(this).find('input:hidden').val(),
+							'type': 'hidden'
+			}).appendTo(form)
+			$('<input>').attr({
+				    			'name': 'comentarios1'+cont,
+							'value': $(this).find('textarea').val(),
+							'type': 'hidden'
+			}).appendTo(form)
+			$('<input>').attr({
+				    			'name': 'tablaA'+cont,
+							'value': $(this).find('input.tablaD'+cont).val(),
+							'type': 'hidden'
+			}).appendTo(form)
+		
+		}
+		if($(this).find('div.tablaDatos').hasClass("mostrada"))
+		{	
+			$('<input>').attr({
+	    			'name': 'bandera'+cont,
+				'value': '1',
+				'type': 'hidden'
+			}).appendTo(form)
+		}		
+		else 
+		{
+			$('<input>').attr({
+	    			'name': 'bandera'+cont,
+				'value': '0',
+				'type': 'hidden'
+
+			}).appendTo(form)
+		}
+		cont++;	
+		
+	   }
+	   );
+		$('<input>').attr({
+				    			'name': 'elementos',
+							'value': cont,
+							'type': 'hidden'
+		}).appendTo(form)
+		
+		
+	});
+
+	$("#mostrar").click(function(){
+	  				$( ".tablaDatos" ).toggle();
+					$( "div.tablaDatos" ).toggleClass( "mostrada" );
+					
+	});
+	
+} );
+	
+</script>
+
+{{ form_start(form) }}
+{{ form_errors(form) }}
+
+<button id="add" type="button" class="btn btn-default">
+  <span aria-hidden="true">Nueva hoja</span> 
+</button>
+<button id="delete" type="button" class="btn btn-default">
+  <span aria-hidden="true">Eliminar hoja</span> 
+</button>
+<button id="mostrar" type="button" class="btn btn-default">
+  				<span aria-hidden="true">Mostrar/ocultar tabla</span> 
+</button>
+
+
+<br><br>
+<div class="row text-center">
+	<div class="col-md-1"><label for="Name" style="float: left">Logo 1:</label></div>
+	<div class="col-md-11" style="float: left">
+		{{ form_widget(form.attachment1) }}
+	</div>
+	<div class="col-md-1"><label for="Name" style="float: left">Logo 2:</label></div>
+	<div class="col-md-11" style="float: left">{{ form_widget(form.attachment2) }}</div>
+</div>
+
+<div class="marco-sala" id="marco-sala">
+   <div id="div_carga" class='affix'>
+      <img id="cargador" src="{{ asset('bundles/indicadores/images/ajax-loader.gif') }}"/>
+   </div>
+   <div class="page">
+        
+      <div class="content">
+         
+         {% block content1 %}
+         <input name='num_graficosPDF' type='hidden' value='{{ graphs|length }}'>
+	 
+	 <div class="row text-center">
+	    <div class="col-md-12">
+	       {{form_widget(form.encabezado)}}
+	    </div>
+	</div>		    
+	    <table class="table-borderless" width="100%">
+	      <tbody>
+	       <tr class="text-center">
+			<td width="10%">
+
+				<img width="100px" height="100px" src="{{ asset('bundles/reportes/images/Logo1.png') }}"/>
+			</td>
+			<td width="80%">
+				{{form_widget(form.titulo)}}
+			</td>
+			<td width="10%">
+
+				<img width="100px" height="100px" src="{{ asset('bundles/reportes/images/Logo1.png') }}"/>
+			</td> 	
+		</tr>
+	      </tbody>
+	</table> 
+	
+	 <table id="graficosT" >
+	    <thead>
+      		<tr><td></td></tr>
+    	    </thead>
+	    <tbody>
+			    		    
+            
+            {% for g in graphs %}
+		 <tr class="select">
+		   <td id="celda{{loop.index}}">
+			    
+			    <center><h4>{{g.titulo}}</h4></center>
+			    <br>
+			    <textarea name='comentarios1{{loop.index}}' rows='10' cols='120' placeholder='Comentarios' ></textarea>
+			    <br>
+			    <input name='data{{loop.index }}' type='hidden' value=''>
+			    <input class='tablaD{{loop.index }}' name='tablaDatosR{{loop.index }}' type='hidden' value=''>
+			    
+			    <br>
+			    <div class='tablaDatos' id='tablaDatos{{loop.index }}'>
+			    		    
+            		    </div>
+			    <script>				
+				var canvas_width = 500;
+				var canvas_height = 475;
+				var canvas_line = 25;
+				var canvas_font = "12pt Arial";
+				div=document.getElementById('celda{{loop.index}}');
+				var img = new Image();
+				img.width = canvas_width;
+				img.height = canvas_height;
+				img.src = '{{ g.data }}';
+				var canvas = document.createElement("canvas");
+				canvas.width = canvas_width;
+				canvas.height = canvas_height;
+			   	var ctx = canvas.getContext("2d");
+				ctx.drawImage(img, 0, 70);
+				ctx.font=canvas_font;
+				<!-- wrapText(ctx, '{{g.titulo}}', 25, 20, canvas_width, canvas_line); -->
+				var dataURL = canvas.toDataURL("image/png");
+				div.appendChild(canvas);
+				$('input[name=data{{loop.index}}]').val(dataURL);
+				var form = document.getElementsByName("Reporte");
+				$('<input>').attr({
+		    			'name': 'titulo'+{{loop.index }},
+					'value':'{{g.titulo}}',
+					'type': 'hidden'
+			    	}).appendTo(form)
+				$(".tablaDatos").hide();	
+				var $log = $('#tablaDatos{{loop.index }}'),
+				  str = '{{g.tablaDatosR}}',
+				  html = $.parseHTML( str ),
+				  nodeNames = [];
+				  var decoded = $("<div/>").html(html).text();
+				$log.append( decoded );	
+				$('input[name=tablaDatosR{{loop.index}}]').val(decoded);
+						
+			    </script>
+			    
+			    <br><br>			    
+		 </td>
+	       </tr>
+            {% endfor %}
+	   </tbody>
+         </table>
+        
+         {% endblock %}
+      </div>
+      
+   </div>
+</div>
+</div>
+
+<button name="pdf"  class="btn btn-success enviar" style="float: right margin-right:5px" formnovalidate>
+	<span class="glyphicon glyphicon-file"></span> Generar PDF
+</button>
+<a href="{{ admin.generateUrl('tablero') }}">
+	<button type="button" class="btn btn-danger " style="float: right">
+		<span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true" ></span> Descartar cambios
+	</button>
+</a>
+
+
+
+{{ form_end(form) }}
+{% endblock %}

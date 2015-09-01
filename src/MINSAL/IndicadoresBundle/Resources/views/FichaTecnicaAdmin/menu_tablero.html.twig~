@@ -1,0 +1,8 @@
+<ul class="nav nav-tabs" id="myTab">
+    <li><a href="#sala">{{'_graficos_'|trans}}</a></li>
+    <li><a href="#opciones_sala">{{'_salas_'|trans|capitalize}}</a></li>
+    <li class="active"><a href="#listado_indicadores">{{"indicadores"|trans}}</a></li>
+    <li><a href="#social">{{"_social_"|trans}}</a></li>
+    <li><a href="#acciones_sala">{{"_sala_acciones_"|trans}}</a></li>
+    <li><A class="crear_reporte"> Crear reporte menu</A></li>
+</ul>

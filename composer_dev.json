@@ -1,0 +1,82 @@
+{
+    "name": "SIIG/eTAB",
+    "description": "SIIG/eTAB",
+    "autoload": {
+        "psr-0": { "": "src/" }
+    },
+    "require": {
+        "php": ">=5.3.3",
+                
+        "symfony/symfony": "~2.4",
+        "doctrine/orm": "~2.2,>=2.2.3",
+        "doctrine/doctrine-bundle": "1.2.0",
+        "twig/extensions": "~1.0",
+        "symfony/assetic-bundle": "~2.3",
+        "symfony/swiftmailer-bundle": "~2.3",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~2.3",
+        "sensio/framework-extra-bundle": "~2.3",
+        "sensio/generator-bundle": "~2.3",
+        "incenteev/composer-parameter-handler": "~2.0",
+        
+        "doctrine/data-fixtures": "dev-master",
+        "doctrine/doctrine-fixtures-bundle": "dev-master",
+        
+        "knplabs/knp-menu-bundle":"1.1.2",
+        
+        "sonata-project/cache": "dev-master",
+        "sonata-project/cache-bundle": "dev-master",
+        "sonata-project/datagrid-bundle": "2.2.*@dev",
+        "sonata-project/core-bundle": "dev-master",
+        "sonata-project/admin-bundle": "~2.3@dev",
+        "sonata-project/doctrine-orm-admin-bundle": "dev-master",
+        "sonata-project/block-bundle": "dev-master",
+        "sonata-project/easy-extends-bundle": "dev-master",
+        "sonata-project/user-bundle": "dev-master",
+        
+        	
+        "simplethings/entity-audit-bundle": "dev-master",
+	"friendsofsymfony/user-bundle": "v1.3.3",
+        "friendsofsymfony/jsrouting-bundle": "dev-master",
+        
+        "os/excel-bundle": "dev-master",
+        "videlalvaro/php-amqplib": "dev-master",
+        "oldsound/rabbitmq-bundle": "*",
+        "fr3d/ldap-bundle": "2.0.*@dev",
+	"knplabs/knp-snappy-bundle": "dev-master",
+                
+        "suncat/mobile-detect-bundle": "dev-master",
+        "jms/serializer-bundle": "dev-master",
+        "friendsofsymfony/rest-bundle": "1.1.*",
+        "snc/redis-bundle": "1.1.x-dev",
+        "predis/predis": "0.8.x-dev"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ],
+        "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
+        ]
+    },
+    "minimum-stability": "beta",
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "incenteev-parameters": {
+            "file": "app/config/parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "2.4-dev"
+        },
+	"symfony-assets-install": "symlink"
+    }
+}

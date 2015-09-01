@@ -1,0 +1,37 @@
+<?php
+
+namespace MINSAL\IndicadoresBundle\Admin;
+
+use Sonata\AdminBundle\Admin\Admin;
+use Sonata\AdminBundle\Datagrid\ListMapper;
+use Sonata\AdminBundle\Datagrid\DatagridMapper;
+use Sonata\CoreBundle\Validator\ErrorElement;
+use Sonata\AdminBundle\Form\FormMapper;
+use MINSAL\IndicadoresBundle\Entity\FichaTecnica;
+use Sonata\AdminBundle\Route\RouteCollection;
+use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\DoctrineORMAdminBundle\Datagrid\ProxyQuery;
+use MINSAL\IndicadoresBundle\Entity\TipoCampo;
+
+class ReportesAdmin extends Admin
+{
+    protected function configureRoutes(RouteCollection $collection)
+   {
+     $collection->add('prueba');
+   }
+
+    public function getTemplate($name)
+    {
+        switch ($name) {
+            case 'prueba':
+                return 'IndicadoresBundle:ReportesAdmin:index.html.twig';
+                break;
+            default:
+                return parent::getTemplate($name);
+                break;
+        }
+    }
+    
+
+    
+}

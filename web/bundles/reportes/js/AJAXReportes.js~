@@ -1,0 +1,41 @@
+function _PruebaAJAX(contenido, id)
+{
+    //alert(contenido);
+    var url="/app_dev.php/admin/minsal/indicadores/fichatecnica/reportesAjax/"+id;
+ 
+    var cont="#"+contenido;
+    //alert(url);
+    $(cont).load(url);
+}
+
+function PruebaAJAX(contenido, id)
+{
+	var url="/app_dev.php/admin/minsal/indicadores/fichatecnica/reportesAjax/"+id;
+	var cont="#"+contenido;
+	$(document).ready(function(){
+	  $.get(url, function(data){
+	    $(cont).append(data);
+	  });
+	});
+}
+
+function eliminarVariable(elemento_eliminar)
+{
+	
+	var eliminar="#"+elemento_eliminar;
+	//alert(elemento_eliminar);
+	$(eliminar).remove();
+}
+
+function cargarSql()
+{	
+	var url="/app_dev.php/admin/minsal/indicadores/fichatecnica/verSql";
+	var cont="#verSql";
+	$(document).ready(function(){
+        $.getJSON(url, function(data) {
+            document.getElementById("Reporte_verSql");
+        });
+    });
+	
+	
+}

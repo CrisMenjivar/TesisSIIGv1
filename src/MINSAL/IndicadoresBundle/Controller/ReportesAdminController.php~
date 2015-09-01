@@ -1,0 +1,27 @@
+<?php
+
+namespace MINSAL\IndicadoresBundle\Controller;
+
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use MINSAL\IndicadoresBundle\Entity\TipoCampo;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
+
+
+class ReportesAdminController extends Controller
+{
+
+    public function pruebaAction()
+    {
+	 $prueba = $this->get('doctrine')
+      	 ->getManager()
+      	 ->createQuery('SELECT tc FROM IndicadoresBundle:TipoCampo tc order by id "ASC"')
+	 ->getResult();
+	 
+         return $this->render('ReportesReportesBundle:Default:index.html.twig', array('prueba' => $prueba));
+    }
+
+	
+}

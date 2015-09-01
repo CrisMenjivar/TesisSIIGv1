@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	      <meta charset="UTF-8" />
+      		<title>
+			{% block title %}Vista previa del reporte{% endblock %}
+		</title>
+      		{% block stylesheets %}
+		      <link rel="stylesheet" href="{{ asset('bundles/reportes/css/bootstrap.min.css') }}" media="all" />
+			  <link rel="stylesheet" href="{{ asset('bundles/reportes/css/bootstrap-theme.css') }}" media="all" />
+			  <link rel="stylesheet" href="{{ asset('bundles/reportes/css/reportes.css') }}" media="all" />
+      		{% endblock %}
+   	</head>
+	<body class="body_page">
+		<div class="contenedor_ext">
+			<div class="contenedor_int">
+			<div class="header">	
+					{% block header %}
+            					<div class="row text-center">
+               						<div class="col-md-2"><img src="{{ asset('bundles/reportes/images/ElSalvador.jpg')}}" height="70" width="70"></div>
+              				 		<div class="col-md-8" >
+                  						<h1>{{encabezado}}</h1>
+              						</div>
+               					<div class="col-md-2"><img src="{{ asset('bundles/reportes/images/MINSAL.jpg')}}" height="100" width="200"></div>
+					</div>
+                    			{% endblock %}
+			</div>		
+			<div class="content">
+           			{% block content %}
+           			 <div class="row">
+              				 <div class="col-md-12">
+                  				   <h2>{{titulo}}</h2>
+              				 </div>
+            			</div>
+           			{% endblock %}
+			
+			{% block content1 %}
+				<div class="row">
+               				<div class="col-md-12">
+              					<h4>{{verSql}}</h4>
+               				</div>
+            			</div>
+            			<div class="row">
+               				<div class="col-md-12">
+              					<h4>{{comentarios}}</h4>
+               				</div>
+            			</div>
+            		{% endblock %}
+			</div>
+			<div class="footer">
+               			{% block footer %}
+               				<div class="row">
+                  				<div class="col-md-12">
+                        				<h6>{{pie}}</h6>
+                        			</div>
+               				</div>
+            			{% endblock %}
+			</div>
+		</div>
+	   </div>
+
+	</body>
+</html>
+<!/>
